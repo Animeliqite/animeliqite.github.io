@@ -3,32 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animeliqite's Social Media</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="src/img/favicon.ico">
+    <title>Animeliqite's Social Media Pages</title>
+    <script>
+        function loadLocalization(lang) {
+            fetch(`src/localization/${lang}.json`)
+                .then(response => response.json())
+                .then(translations => {
+                    document.title = translations.title;
+                    document.querySelector("#socialMediaTitle").textContent = translations.socialMediaTitle;
+                    document.querySelector("#twitter").textContent = translations.twitter;
+                    document.querySelector("#gameJolt").textContent = translations.gameJolt;
+                    document.querySelector("#youtube").textContent = translations.youtube;
+                    document.querySelector("#bluesky").textContent = translations.bluesky;
+                    document.querySelector("#steam").textContent = translations.steam;
+                    document.querySelector("#github").textContent = translations.github;
+                    document.querySelector("#gamesTitle").textContent = translations.gamesTitle;
+                    document.querySelector("#japaritale").textContent = translations.japaritale;
+                    document.querySelector("#unknownGame").textContent = translations.unknownGame;
+                    document.querySelector("#footer").innerHTML = translations.footer;
+                });
+        }
+    
+        document.addEventListener("DOMContentLoaded", function () {
+            const userLang = navigator.language || 'en';
+            let lang = 'en';
+            
+            switch (true) {
+                default:
+                    lang = 'en';
+                    break;
+                case userLang.startsWith('tr'):
+                    lang = 'tr';
+                    break;
+            }
+
+            loadLocalization(lang);
+
+            const buttons = document.querySelectorAll('.language-buttons button');
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    buttons.forEach(btn => btn.classList.remove('selected'));
+                    this.classList.add('selected');
+                })
+            })
+        });
+    </script>
 </head>
 <body>
     <div class="container">
-        <h1>Animeliqite's Social Media Pages</h1>
+        <h1 id="socialMediaTitle">Animeliqite's Social Media Pages</h1>
         <div class="social-media">
-            <a href="https://twitter.com/Animeliqite" target="_blank"><img src="src/img/social-media/logo-twitter.png" alt="Twitter"> Twitter</a>
-            <a href="https://gamejolt.com/@Animeliqite" target="_blank"><img src="src/img/social-media/logo-gamejolt.png" alt="GameJolt"> GameJolt</a>
-            <a href="https://youtube.com/Animeliqite" target="_blank"><img src="src/img/social-media/logo-youtube.png" alt="YouTube"> YouTube</a>
-            <a href="https://bsky.app/profile/animeliqite.bsky.social" target="_blank"><img src="src/img/social-media/logo-bluesky.png" alt="Bluesky"> Bluesky</a>
-            <a href="https://steamcommunity.com/id/animeliqite" target="_blank"><img src="src/img/social-media/logo-steam.png" alt="Steam"> Steam</a>
+            <a href="https://twitter.com/Animeliqite" target="_blank"><img src="src/img/social-media/logo-twitter.png" alt="Twitter"><span id="twitter">Twitter</span></a>
+            <a href="https://gamejolt.com/@Animeliqite" target="_blank"><img src="src/img/social-media/logo-gamejolt.png" alt="GameJolt"><span id="gameJolt">GameJolt</span></a>
+            <a href="https://youtube.com/Animeliqite" target="_blank"><img src="src/img/social-media/logo-youtube.png" alt="YouTube"><span id="youtube">YouTube</span></a>
+            <a href="https://bsky.app/profile/animeliqite.bsky.social" target="_blank"><img src="src/img/social-media/logo-bluesky.png" alt="Bluesky"><span id="bluesky">Bluesky</span></a>
+            <a href="https://steamcommunity.com/id/animeliqite" target="_blank"><img src="src/img/social-media/logo-steam.png" alt="Steam"><span id="steam">Steam</span></a>
+            <a href="https://github.com/Animeliqite" target="_blank"><img src="src/img/social-media/logo-github.png" alt="GitHub"><span id="github">GitHub</span></a>
         </div>
-        <h2>Animeliqite's Games</h2>
+
+        <hr>
+        
+        <h2 id="gamesTitle">Animeliqite's Games</h2>
         <div class="games">
             <div class="game-item">
                 <a href="https://gamejolt.com/games/team-furenzu-japaritale/368818" target="_blank" ><img src="src/img/games/logo-japaritale.png" alt="JAPARITALE"></a>
-                <p>JAPARITALE</p>
+                <p id="japaritale">JAPARITALE</p>
             </div>
             <div class="game-item">
                 <a href="#"><img src="src/img/games/logo-unknowngame.png" alt="To Be Announced"></a>
-                <p>???</p>
+                <p id="unknownGame">???</p>
             </div>
         </div>
+        
+        <hr>
+
+        <div class="language-buttons">
+            <button onclick="loadLocalization('en')">English</button>
+            <button onclick="loadLocalization('tr')">Türkçe</button>
+        </div>
         <footer>
-            <p>&copy; 2024 Animeliqite. All rights reserved.</p>
+            <p id="footer">&copy; 2024 Animeliqite. All rights reserved.</p>
         </footer>
     </div>
 </body>
