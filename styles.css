@@ -7,19 +7,22 @@
 }
 
 html, body {
-    height: 100%;
+    min-height: 100%;
     margin: 0;
+    background: linear-gradient(135deg, #989cd9, #a1c9d6);
+    background-repeat: no-repeat;
 }
 
 body {
     font-family: 'DIN 2014', Arial, sans-serif;
     text-align: center;
-    background: linear-gradient(135deg, #989cd9, #a1c9d6);
     background-size: cover;
-    padding: 0;
+    padding: 16px;
+    min-height: 100dvh;
     display: flex;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box;
 }
 
 button {
@@ -32,6 +35,8 @@ button {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     display: inline-block;
+    box-sizing: border-box;
+    max-width: min(100%, 1100px);
 }
 
 h1, h2 {
@@ -42,14 +47,53 @@ h1, h2 {
     margin: 20px 0;
     padding: 5px;
     background: rgba(105, 143, 173, 0.25);
-    border-radius: 10px;
+    border-radius: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 5px;
 }
 
 .social-media a {
-    margin: 0 10px;
+    margin: 0;
     text-decoration: none;
     color: #555;
     font-size: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    position: relative;
+    padding: 5px;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s linear;
+}
+
+.social-media a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 15px;
+    opacity: 0;
+    transition: opacity 0.3s linear;
+}
+
+.social-media a:hover::before {
+    opacity: 1;
+}
+
+.social-media a:hover {
+    cursor: pointer;
+}
+
+.social-media a img,
+.social-media a span {
+    position: relative;
+    z-index: 1;
 }
 
 .social-media img {
@@ -62,7 +106,7 @@ h1, h2 {
     margin: 20px 0;
     background: rgba(105, 143, 173, 0.25);
     padding: 5px;
-    border-radius: 10px;
+    border-radius: 20px;
 }
 
 .game-item {
@@ -73,11 +117,14 @@ h1, h2 {
 .game-item a {
     display: block;
     position: relative;
+    text-decoration: none;
+    color: inherit;
+    padding: 10px;
 }
 
 .game-item img {
     height: 100px;
-    margin: 10px;
+    margin: 0;
     border-radius: 15px;
     transition: all 0.3s linear;
 }
@@ -146,12 +193,20 @@ hr {
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.5); /* Slightly deeper shadow */
 }
 
+@media (max-width: 1094px) {
+    .container {
+        width: 92%;
+        padding: 20px;
+    }
+}
+
 
 @media (max-width: 1000px) {
     body {
-        background: linear-gradient(135deg, #989cd9, #a1c9d6);
         background-size: cover;
+        min-height: 100dvh;
         padding: 20px;
+        align-items: flex-start;
     }
 
     .container {
@@ -161,13 +216,55 @@ hr {
 
     .social-media a {
         font-size: 16px;
+        min-width: 0;
+    }
+
+    .social-media {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .games {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        gap: 10px;
+        box-sizing: border-box;
+    }
+
+    .game-item {
+        width: min(100%, 320px);
+        max-width: 100%;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    .game-item a {
+        width: 100%;
+        padding: 6px;
     }
 
     .games img {
-        height: 80px;
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        margin: 0;
     }
 
     footer {
         margin-top: 10px;
+    }
+}
+
+@media (max-height: 700px) {
+    body {
+        align-items: flex-start;
+        padding: 12px;
+    }
+
+    .container {
+        width: 100%;
+        padding: 12px;
     }
 }
